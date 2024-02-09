@@ -1,3 +1,5 @@
+export {getRandomPokemon};
+
 const getRandomPokemon = async () => {
   const count_response = await fetch("https://pokeapi.co/api/v2/pokemon-species?limit=1")
   const count_json =  await count_response.json()
