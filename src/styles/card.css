@@ -44,14 +44,14 @@
   transform: translate(-50%, -50%);
 }
 
-.card:hover {
+/* .card:hover {
   transform: rotateY(180deg);
 }
 
 .card:hover .cardBack {
   transform: rotateY(180deg);
   backface-visibility: visible;
-}
+} */
 
 .card-title {
   text-align: center;
