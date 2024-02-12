@@ -1,39 +1,58 @@
 import { useEffect, useRef, useState } from "react";
 import { getPokemonCount, getPokemonById } from "./pokeapi";
-import Card from "./card";
+import Card from "./Card";
 import _ from "lodash";
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
   const cards = gameData.map((pokemonData) => (
     <Card
-      onClick={(e) => {if (clickedItems.current.includes(e.currentTarget.dataset.id)) {
-        clickedItems.current = [];
-        if (currentScore > bestScore.current) {
-          bestScore.current = currentScore;
-        }
-        setCurrentScore(0);
-      }else {
-        if (currentScore + 1 === gameData.length) {
-          setGameState('won');
+      onClick={(e) => {
+        if (clickedItems.current.includes(e.currentTarget.dataset.id)) {
           clickedItems.current = [];
-          bestScore.current = currentScore + 1;
+          if (currentScore > bestScore.current) {
+            bestScore.current = currentScore;
+          }
+          setCurrentScore(0);
         } else {
-          clickedItems.current.push(e.currentTarget.dataset.id);
-          setCurrentScore(currentScore + 1);
+          if (currentScore + 1 === gameData.length) {
+            setGameState("won");
+            clickedItems.current = [];
+            bestScore.current = currentScore + 1;
+          } else {
+            clickedItems.current.push(e.currentTarget.dataset.id);
+            const cardContainer = document.querySelector(".cards-container");
+            cardContainer.classList.toggle("cards-flipped");
+            setCurrentScore(currentScore + 1);
+            const timedPromise = (time) => new Promise((resolve, reject) => setTimeout(resolve, time));
+            timedPromise(1000)
+            .then(()=> timedPromise(500))
+            .then(() => cardContainer.classList.toggle("cards-flipped"));
+            
+            
+          }
         }
-        
-      }}}
+      }}
       key={pokemonData.id}
-      id = {pokemonData.id}
+      id={pokemonData.id}
       title={pokemonData.name}
       image={pokemonData.sprite}
     ></Card>
   ));
+  const cardNodes = useRef(null);
   const clickedItems = useRef([]);
   const [gameState, setGameState] = useState("start");
   const [currentScore, setCurrentScore] = useState(0);
   const bestScore = useRef(0);
+  // This effect randomizes card display order on mount and on score change
+  useEffect(()=> {
+    if (gameState === 'main_loop' && cardNodes.current === null) {
+      cardNodes.current = Array.from(document.getElementsByClassName('card'));
+      const orders = _.sampleSize(Array.from({length: 12}, (_, index) => index + 1), 12);
+      cardNodes.current.forEach((card) => card.style.order = orders.shift());
+    }
+  }, [currentScore])
+  // This effect fetches the pokemon data and starts the game main loop
   useEffect(() => {
     async function fetchData() {
       if (gameState === "loading") {
@@ -49,7 +68,7 @@ export default function Game() {
           const pokemon_data = await getPokemonById(id);
           const pokemon_data_object = {
             id: pokemon_data.id,
-            name: pokemon_data.name,
+            name: pokemon_data.species.name,
             sprite: pokemon_data.sprites.front_default,
           };
           return pokemon_data_object;
@@ -72,12 +91,12 @@ export default function Game() {
       <>
         <p>Current score: {currentScore}</p>
         <p>Best score: {bestScore.current}</p>
-        <div>{_.sampleSize(cards, cards.length)}</div>
+        <div className="cards-container">
+          {cards}
+        </div>
       </>
     );
-  } else if (gameState === 'won') {
-    return (
-      <p>Game won!</p>
-    );
+  } else if (gameState === "won") {
+    return <p>Game won!</p>;
   }
 }

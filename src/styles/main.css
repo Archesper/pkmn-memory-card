@@ -24,6 +24,5 @@ body::before {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  filter:brightness(0.7);
   z-index: -1;
 }
