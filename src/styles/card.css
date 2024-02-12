@@ -44,15 +44,57 @@
   backface-visibility: hidden;
 }
 
+.card-ball, .ball-center, .inner-ring, .ball-lower-half {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .card-ball {
   background-color: red;
   border-radius: 50%;
   width: 120px;
   height: 120px;
+  border: 3px solid black;
+  z-index: -2;
+}
+
+.ball-lower-half {
+  width: 120px;
+  height: 60px;
+  z-index: -1;
+  background-color: white;
+  border-radius: 0 0 60px 60px;
+  top: calc(50% + 30px);
+  border: 3px solid black;
+}
+
+.ball-center {
+  background-color: white;
+  width: 33%;
+  height: 33%;
+  border-radius: 50%;
+  border: 5px solid black;
+}
+
+.inner-ring {
+  background-color: white;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.ball-strikethrough {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 10px;
+  width: 100%;
+  background-color: black;
+  z-index: -1;
 }
 
 .cards-flipped .card {
