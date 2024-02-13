@@ -1,4 +1,5 @@
 import "./styles/card.css";
+import PokeBall from "./pokeball";
 
 export default function Card({
   id,
@@ -19,14 +20,7 @@ export default function Card({
         </p>
       </div>
       <div className="cardBack">
-        <div className="card-ball">
-          <div className="ball-center">
-            <div className="inner-ring"></div>
-          </div>
-          <div className="ball-strikethrough"></div>
-          <div className="ball-lower-half"></div>
-        </div>
-
+        <PokeBall></PokeBall>
       </div>
     </div>
   );
