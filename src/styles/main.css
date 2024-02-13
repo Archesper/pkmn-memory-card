@@ -56,7 +56,7 @@ flex-direction: column;}
   border-radius: 12px;
 }
 
-.card-ball {
+.loading-overlay .card-ball {
   animation: ball-rotation 1s infinite;
   animation-timing-function: linear;
 }
