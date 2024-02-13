@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getPokemonCount, getPokemonById } from "./pokeapi";
 import Card from "./Card";
 import _ from "lodash";
+import timedPromise from "./helpers"
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
@@ -24,9 +25,7 @@ export default function Game() {
             const cardContainer = document.querySelector(".cards-container");
             cardContainer.classList.toggle("cards-flipped");
             setCurrentScore(currentScore + 1);
-            const timedPromise = (time) => new Promise((resolve, reject) => setTimeout(resolve, time));
             timedPromise(1000)
-            .then(()=> timedPromise(500))
             .then(() => cardContainer.classList.toggle("cards-flipped"));
             
             
@@ -46,10 +45,14 @@ export default function Game() {
   const bestScore = useRef(0);
   // This effect randomizes card display order on mount and on score change
   useEffect(()=> {
-    if (gameState === 'main_loop' && cardNodes.current === null) {
-      cardNodes.current = Array.from(document.getElementsByClassName('card'));
+    if (gameState === 'main_loop') {
+      if (!cardNodes.current) {
+        cardNodes.current = Array.from(document.getElementsByClassName('card'));
+      }
       const orders = _.sampleSize(Array.from({length: 12}, (_, index) => index + 1), 12);
-      cardNodes.current.forEach((card) => card.style.order = orders.shift());
+      // The use of timedPromise ensures there is no visual lag with the order getting shuffled right before cards flip
+      timedPromise(500).then(() => cardNodes.current.forEach((card) => card.style.order = orders.shift()))
+      
     }
   }, [currentScore])
   // This effect fetches the pokemon data and starts the game main loop
