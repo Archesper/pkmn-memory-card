@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { getPokemonCount, getPokemonById } from "./pokeapi";
 import Card from "./Card";
+import PokeBall from "./pokeball";
 import _ from "lodash";
 import timedPromise from "./helpers"
 
@@ -88,7 +89,8 @@ export default function Game() {
   if (gameState === "start") {
     return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
   } else if (gameState === "loading") {
-    return <p>Loading...</p>;
+    return <div className="loading-overlay"><PokeBall></PokeBall>
+    <p className="loading-info-text">Loading Pokemon</p></div>;
   } else if (gameState === "main_loop") {
     return (
       <>
