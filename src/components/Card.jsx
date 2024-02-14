@@ -1,4 +1,4 @@
-import "./styles/card.css";
+import "../styles/card.css";
 import PokeBall from "./pokeball";
 
 export default function Card({

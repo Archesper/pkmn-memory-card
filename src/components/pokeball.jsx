@@ -1,4 +1,4 @@
-import './styles/pokeball.css'
+import '../styles/pokeball.css'
 
 export default function PokeBall() {
   return (

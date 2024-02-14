@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { getPokemonCount, getPokemonById } from "./pokeapi";
+import { getPokemonCount, getPokemonById } from "../helpers/pokeapi";
 import Card from "./Card";
 import PokeBall from "./pokeball";
 import _ from "lodash";
-import timedPromise from "./helpers"
+import timedPromise from "../helpers/timedPromise"
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
