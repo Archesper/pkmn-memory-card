@@ -5,6 +5,7 @@ import _ from "lodash";
 import timedPromise from "../helpers/timedPromise"
 import LoadingScreen from "./loadingScreen";
 import ScoreBoard from "./scoreBoard";
+import GameOverModal from "./gameOverModal";
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
@@ -16,7 +17,7 @@ export default function Game() {
           if (currentScore > bestScore.current) {
             bestScore.current = currentScore;
           }
-          setCurrentScore(0);
+          setGameState("game_over");
         } else {
           if (currentScore + 1 === gameData.length) {
             setGameState("won");
@@ -91,13 +92,15 @@ export default function Game() {
     return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
   } else if (gameState === "loading") {
     return <LoadingScreen></LoadingScreen>
-  } else if (gameState === "main_loop") {
+  } else if (gameState === "main_loop" || gameState === "game_over") {
     return (
       <>
+      {gameState === "game_over" ? <GameOverModal finalScore={currentScore} onButtonClick={()=> {setGameState('loading'); setCurrentScore(0)}}> </GameOverModal> : ''}
         <ScoreBoard currentScore={currentScore} bestScore={bestScore.current}></ScoreBoard>
         <div className="cards-container">
           {cards}
         </div>
+        
       </>
     );
   } else if (gameState === "won") {

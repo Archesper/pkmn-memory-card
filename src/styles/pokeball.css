@@ -16,12 +16,12 @@
 }
 
 .ball-lower-half {
-  width: 120px;
-  height: 60px;
+  width: calc(100% + 4.8px);
+  height: calc(50% + 3px);
   z-index: -1;
   background-color: white;
   border-radius: 0 0 60px 60px;
-  top: calc(50% + 30px);
+  top: 75%;
   border: 3px solid black;
 }
 
