@@ -2,7 +2,7 @@ import '../styles/pokeball.css'
 
 export default function PokeBall() {
   return (
-    <div className="card-ball">
+    <div className="poke-ball">
       <div className="ball-center">
         <div className="inner-ring"></div>
       </div>

@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
 }
 
-.card-ball {
+.poke-ball {
   position: relative;
   background-color: red;
   border-radius: 50%;
