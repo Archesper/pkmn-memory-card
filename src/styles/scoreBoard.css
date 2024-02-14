@@ -1,0 +1,17 @@
+.score-board {
+  color: white;
+  display: flex;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.57);
+  border-radius: 14px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.score {
+  font-weight: bold;
+}

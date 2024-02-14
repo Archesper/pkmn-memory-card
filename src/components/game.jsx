@@ -4,6 +4,7 @@ import Card from "./Card";
 import _ from "lodash";
 import timedPromise from "../helpers/timedPromise"
 import LoadingScreen from "./loadingScreen";
+import ScoreBoard from "./scoreBoard";
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
@@ -93,8 +94,7 @@ export default function Game() {
   } else if (gameState === "main_loop") {
     return (
       <>
-        <p>Current score: {currentScore}</p>
-        <p>Best score: {bestScore.current}</p>
+        <ScoreBoard currentScore={currentScore} bestScore={bestScore.current}></ScoreBoard>
         <div className="cards-container">
           {cards}
         </div>
