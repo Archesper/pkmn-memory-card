@@ -10,11 +10,14 @@
 
 
 
+#root {
+  padding: 8px;
+}
 
 body { 
   min-height: 100vh;
   position: relative;
-
+  
 }
 
 body::before {
