@@ -56,9 +56,10 @@ export default function Game() {
         Array.from({ length: 12 }, (_, index) => index + 1),
         12
       );
+      console.log(orders);
       // The use of timedPromise ensures there is no visual lag with the order getting shuffled right before cards flip
       timedPromise(500).then(() =>
-        cardNodes.current.forEach((card) => (card.style.order = orders.shift()))
+        cardNodes.current.forEach((card) => card.style.order = orders.shift())
       );
     }
   }, [currentScore]);
@@ -95,6 +96,7 @@ export default function Game() {
   if (gameState === "start") {
     return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
   } else if (gameState === "loading") {
+    cardNodes.current = null;
     return <LoadingScreen></LoadingScreen>;
   } else if (
     gameState === "main_loop" ||
