@@ -5,6 +5,7 @@ import timedPromise from "../helpers/timedPromise";
 
 export default function CardContainer({ gameState, children }) {
   const cardNodes = useRef(null);
+  const classes = "cards-container " + (gameState === "game_won" || gameState === "game_lost" ? "cards-flipped" : "");
   // This effect shuffles cards ( using flexbox order property)
   // It runs after every render - the cards onclick ( set in game component ) re-renders parent component
   useEffect(() => {
@@ -28,5 +29,5 @@ export default function CardContainer({ gameState, children }) {
       }
     }
   });
-  return <div className="cards-container">{children}</div>;
+  return <div className={classes}>{children}</div>;
 }

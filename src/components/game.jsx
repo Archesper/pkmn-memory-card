@@ -9,6 +9,10 @@ import CardContainer from "./cardContainer";
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
+  const clickedItems = useRef([]);
+  const [gameState, setGameState] = useState("start");
+  const [currentScore, setCurrentScore] = useState(0);
+  const bestScore = useRef(0);
   const cardClick = (e) => {
     if (clickedItems.current.includes(e.currentTarget.dataset.id)) {
       clickedItems.current = [];
@@ -42,10 +46,6 @@ export default function Game() {
       image={pokemonData.sprite}
     ></Card>
   ));
-  const clickedItems = useRef([]);
-  const [gameState, setGameState] = useState("start");
-  const [currentScore, setCurrentScore] = useState(0);
-  const bestScore = useRef(0);
   // This effect fetches the pokemon data and starts the game main loop
   useEffect(() => {
     async function fetchData() {
@@ -79,7 +79,6 @@ export default function Game() {
   if (gameState === "start") {
     return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
   } else if (gameState === "loading") {
-    // cardNodes.current = null;
     return <LoadingScreen></LoadingScreen>;
   } else if (
     gameState === "main_loop" ||
