@@ -7,17 +7,15 @@
 }
 
 .card {
-  font-family: 'Comic Sans MS', sans-serif;
+  font-family: "Comic Sans MS", sans-serif;
   color: white;
   position: relative;
-  width:  180px;
+  width: 180px;
   height: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  backface-visibility: hidden;
-  transition: transform .5s;
 }
 
 .sprite {
@@ -25,15 +23,16 @@
   height: 200px;
 }
 
-.cardBack, .cardFront {
+.cardBack,
+.cardFront {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-
-
 .cardFront {
+  backface-visibility: hidden;
+  transition: transform 0.5s;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
@@ -41,20 +40,18 @@
 .cardBack {
   background-color: rgb(48, 100, 110);
   transform: rotateY(180deg);
+  transition: transform 0.5s;
   backface-visibility: hidden;
   display: grid;
   place-items: center;
 }
 
-
-.cards-flipped .card {
+.cards-flipped .cardFront {
   transform: rotateY(180deg);
 }
 
-
-
 .cards-flipped .card .cardBack {
-  transform: rotateY(180deg);
+  transform: rotateY(360deg);
   backface-visibility: visible;
 }
 
