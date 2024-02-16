@@ -105,7 +105,7 @@ export default function Game() {
           currentScore={currentScore}
           bestScore={bestScore.current}
         ></ScoreBoard>
-        <CardContainer gameState={gameState}>{cards}</CardContainer>
+        <CardContainer onCardClick={cardClick} gameData={gameData} gameState={gameState}>{cards}</CardContainer>
       </>
     );
   }
