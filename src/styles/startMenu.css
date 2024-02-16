@@ -1,0 +1,81 @@
+.start-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+
+.start-menu h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.start-menu .radio-container {
+  width: 100%;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-around;
+}
+
+.start-menu button {
+  text-transform: uppercase;
+  word-wrap: break-word;
+  padding: 8px;
+}
+
+.radio-easy {
+  background-color: rgb(79, 240, 79);
+}
+
+.radio-easy:hover, .radio-easy.selected-option {
+  background-color: rgb(27, 87, 27);
+}
+
+.radio-medium {
+  background-color: rgb(255, 255, 130);
+}
+
+.radio-medium:hover, .radio-medium.selected-option {
+  background-color: rgb(213, 213, 38);
+}
+
+.radio-hard {
+  background-color: rgb(255, 129, 129);
+}
+
+.radio-hard:hover, .radio-hard.selected-option {
+  background-color: rgb(170, 48, 48);
+}
+
+.radio-option:hover, .selected-option {
+  color: white;
+}
+
+.radio-option {
+  position: relative;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selected-option::after {
+  content: '';
+  border: solid rgb(79, 79, 79);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-top: 7px;
+  transform: translateX(-50%) rotateZ(-135deg);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+}
+

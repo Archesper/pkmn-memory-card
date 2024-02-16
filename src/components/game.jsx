@@ -6,6 +6,8 @@ import LoadingScreen from "./loadingScreen";
 import ScoreBoard from "./scoreBoard";
 import GameOverModal from "./gameOverModal";
 import CardContainer from "./cardContainer";
+import StartMenu from "./startMenu";
+import RadioInput from "./radioInput";
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
@@ -77,7 +79,11 @@ export default function Game() {
     fetchData();
   }, [gameState]);
   if (gameState === "start") {
-    return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
+    return (
+      <>
+        <StartMenu onStart={()=> setGameState('loading')}></StartMenu>
+      </>
+    );
   } else if (gameState === "loading") {
     return <LoadingScreen></LoadingScreen>;
   } else if (
@@ -105,7 +111,13 @@ export default function Game() {
           currentScore={currentScore}
           bestScore={bestScore.current}
         ></ScoreBoard>
-        <CardContainer onCardClick={cardClick} gameData={gameData} gameState={gameState}>{cards}</CardContainer>
+        <CardContainer
+          onCardClick={cardClick}
+          gameData={gameData}
+          gameState={gameState}
+        >
+          {cards}
+        </CardContainer>
       </>
     );
   }
