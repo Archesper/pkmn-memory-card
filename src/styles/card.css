@@ -55,6 +55,10 @@
   backface-visibility: visible;
 }
 
+.cards-flipped .card {
+  pointer-events: none;
+}
+
 .card-title {
   text-align: center;
   text-transform: capitalize;
