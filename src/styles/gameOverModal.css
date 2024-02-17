@@ -55,6 +55,7 @@
   background-color: white;
   border-radius: 12px;
   cursor: pointer;
+  width: 100%;
 }
 
 .play-again-btn:hover {

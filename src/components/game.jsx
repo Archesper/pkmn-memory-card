@@ -6,9 +6,17 @@ import LoadingScreen from "./loadingScreen";
 import ScoreBoard from "./scoreBoard";
 import GameOverModal from "./gameOverModal";
 import CardContainer from "./cardContainer";
+import StartMenu from "./startMenu";
+
+const fetchCounts = {
+  easy: 5,
+  medium: 12,
+  hard: 30
+}
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
+  const [gameDifficulty, setGameDifficulty] = useState('');
   const clickedItems = useRef([]);
   const [gameState, setGameState] = useState("start");
   const [currentScore, setCurrentScore] = useState(0);
@@ -52,7 +60,8 @@ export default function Game() {
       if (gameState === "loading") {
         const randomIDs = [];
         const count = await getPokemonCount();
-        while (randomIDs.length !== 12) {
+        console.log();
+        while (randomIDs.length !== fetchCounts[gameDifficulty]) {
           const id = Math.floor(Math.random() * parseInt(count)) + 1;
           if (!randomIDs.includes(id)) {
             randomIDs.push(id);
@@ -77,7 +86,11 @@ export default function Game() {
     fetchData();
   }, [gameState]);
   if (gameState === "start") {
-    return <button onClick={(e) => setGameState("loading")}>Start Game</button>;
+    return (
+      <>
+        <StartMenu onRadioChange={((option)=> setGameDifficulty(option))} onStart={()=> setGameState('loading')}></StartMenu>
+      </>
+    );
   } else if (gameState === "loading") {
     return <LoadingScreen></LoadingScreen>;
   } else if (
@@ -91,6 +104,8 @@ export default function Game() {
           <GameOverModal
             winOrLose={gameState === "game_won" ? "WIN" : "LOSE"}
             finalScore={currentScore}
+            difficulty={gameDifficulty}
+            setDifficulty={setGameDifficulty}
             onButtonClick={() => {
               setGameState("loading");
               setCurrentScore(0);
@@ -105,7 +120,13 @@ export default function Game() {
           currentScore={currentScore}
           bestScore={bestScore.current}
         ></ScoreBoard>
-        <CardContainer gameState={gameState}>{cards}</CardContainer>
+        <CardContainer
+          onCardClick={cardClick}
+          gameData={gameData}
+          gameState={gameState}
+        >
+          {cards}
+        </CardContainer>
       </>
     );
   }
