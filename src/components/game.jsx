@@ -104,6 +104,8 @@ export default function Game() {
           <GameOverModal
             winOrLose={gameState === "game_won" ? "WIN" : "LOSE"}
             finalScore={currentScore}
+            difficulty={gameDifficulty}
+            setDifficulty={setGameDifficulty}
             onButtonClick={() => {
               setGameState("loading");
               setCurrentScore(0);
