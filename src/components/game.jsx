@@ -7,10 +7,16 @@ import ScoreBoard from "./scoreBoard";
 import GameOverModal from "./gameOverModal";
 import CardContainer from "./cardContainer";
 import StartMenu from "./startMenu";
-import RadioInput from "./radioInput";
+
+const fetchCounts = {
+  easy: 5,
+  medium: 12,
+  hard: 30
+}
 
 export default function Game() {
   const [gameData, setGameData] = useState([]);
+  const [gameDifficulty, setGameDifficulty] = useState('');
   const clickedItems = useRef([]);
   const [gameState, setGameState] = useState("start");
   const [currentScore, setCurrentScore] = useState(0);
@@ -54,7 +60,8 @@ export default function Game() {
       if (gameState === "loading") {
         const randomIDs = [];
         const count = await getPokemonCount();
-        while (randomIDs.length !== 12) {
+        console.log();
+        while (randomIDs.length !== fetchCounts[gameDifficulty]) {
           const id = Math.floor(Math.random() * parseInt(count)) + 1;
           if (!randomIDs.includes(id)) {
             randomIDs.push(id);
@@ -81,7 +88,7 @@ export default function Game() {
   if (gameState === "start") {
     return (
       <>
-        <StartMenu onStart={()=> setGameState('loading')}></StartMenu>
+        <StartMenu onRadioChange={((option)=> setGameDifficulty(option))} onStart={()=> setGameState('loading')}></StartMenu>
       </>
     );
   } else if (gameState === "loading") {

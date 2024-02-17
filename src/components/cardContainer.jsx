@@ -36,7 +36,7 @@ export default function CardContainer({gameState, gameData, onCardClick }) {
       // The shuffling logic is wrapped in an else as not to shuffle the cards on first render, to avoid making it look
       // Like the cards display twice
       else {
-        const randomPokemon = _.sampleSize(gameData, 12);
+        const randomPokemon = _.sampleSize(gameData, gameData.length);
         // The use of timedPromise ensures there is no visual lag with the order getting shuffled right before cards flip
         timedPromise(500).then(() =>
           cardNodes.current.forEach(
